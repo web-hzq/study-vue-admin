@@ -51,6 +51,8 @@
             <el-col :span="3">&nbsp;</el-col>
             <el-col :span="2">
                 <!-- <el-button type="danger" class="pull-right" style="width: 100%;" @click="dialog_info = true"  v-if="btnPerm('info:add')">新增</el-button> -->
+                <el-button type="danger" class="pull-right" style="width: 100%;" @click="dialog_info = true" >新增</el-button>
+
             </el-col>
         </el-row>
         <!-- 表格数据 -->
@@ -90,14 +92,14 @@
             </el-col>
         </el-row>
         <!--新增弹窗-->
-        <!-- <DialogInfo :flag.sync="dialog_info" :category="options.category" @getListEmit="getList" /> -->
+        <DialogInfo :flag.sync="dialog_info" :category="options.category" @getListEmit="getList" />
         <!--修必弹窗-->
         <!-- <DialogEditInfo :flag.sync="dialog_info_edit" :id="infoId" :category="options.category" @getListEmit="getList" /> -->
     </div>
 </template>
 <script>
 import { GetCategory, GetList, DeleteInfo } from "@/api/news";
-// import DialogInfo from "./dialog/info";
+import DialogInfo from "./dialog/info";
 // import DialogEditInfo from "./dialog/edit";
 import { global } from "@/utils/global_V3.0";
 import { reactive, ref, watch, onMounted, onActivated } from '@vue/composition-api';
@@ -107,7 +109,9 @@ import { timestampToTime } from "@/utils/common";
 export default {
     name: 'infoIndex',
     // components: { DialogInfo, DialogEditInfo, SelectVue },
-    setup(props, { root }) {
+    components: { DialogInfo },
+
+    setup(props, { root,emit }) {
         const { str: aaa, confirm } = global();
         /**
          * 数据
@@ -283,7 +287,6 @@ export default {
             deleteInfoId.value = id
         }
 
-
         /**
          * 阻塞、BUG导致整个业务流程不能进行，这个BUG，
          * 
@@ -296,7 +299,7 @@ export default {
          */
         onMounted(() => {
             // 获取分类
-            getInfoCategory();
+            // getInfoCategory();
             // 获取列表
             getList();
         })

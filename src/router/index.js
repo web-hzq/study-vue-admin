@@ -4,103 +4,102 @@ import VueRouter from 'vue-router'
 import Layout from '../views/Layout'
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    redirect: "console",
-    hidden: true,
-    meta: {
-      name: "首页"
-    }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    hidden: true,
-    meta: {
-      name: "登录页"
+const routes = [{
+        path: '/',
+        redirect: "console",
+        hidden: true,
+        meta: {
+            name: "首页"
+        }
     },
-    component: () => import('../views/Login/index.vue')
-  },
-  {
-    path: '/console',
-    name: 'Console',
-    redirect: "index",
-    component: Layout,
-    hidden: false,
-    meta: {
-      name: "控制台",
-      icon:"console"
+    {
+        path: '/login',
+        name: 'Login',
+        hidden: true,
+        meta: {
+            name: "登录页"
+        },
+        component: () =>
+            import ('../views/Login/index.vue')
     },
-    children: [
-      {
-        path: "/index",
-        name: "Index",
+    {
+        path: '/console',
+        name: 'Console',
+        redirect: "index",
+        component: Layout,
         hidden: false,
         meta: {
-          name: "控制台首页",
+            name: "控制台",
+            icon: "console"
         },
-        component: () => import("../views/Console/index.vue")
-      }
-    ]
-  },
-  {
-    path: '/info',
-    name: 'Info',
-    redirect: "infoIndex",
-    component: Layout,
-    hidden: false,
-    meta: {
-      name: "信息管理",
-      icon:"info"
+        children: [{
+            path: "/index",
+            name: "Index",
+            hidden: false,
+            meta: {
+                name: "控制台首页",
+            },
+            component: () =>
+                import ("../views/Console/index.vue")
+        }]
     },
-    children: [
-      {
-        path: "/infoIndex",
-        name: "InfoIndex",
+    {
+        path: '/info',
+        name: 'Info',
+        redirect: "infoIndex",
+        component: Layout,
         hidden: false,
         meta: {
-          name: "信息列表"
+            name: "信息管理",
+            icon: "info"
         },
-        component: () => import("../views/Info/index.vue")
-      },
-      {
-        path: "/infoCategory",
-        name: "InfoCategory",
-        hidden: false,
-        meta: {
-          name: "信息列表"
-        },
-        component: () => import("../views/Info/index.vue")
-      }
-    ]
-  },
-  {
-    path: '/user',
-    name: 'User',
-    redirect: "userIndex",
-    component: Layout,
-    hidden: false,
-    meta: {
-      name: "用户管理",
-      icon:"user"
+        children: [{
+                path: "/infoIndex",
+                name: "InfoIndex",
+                hidden: false,
+                meta: {
+                    name: "信息列表"
+                },
+                component: () =>
+                    import ("../views/Info/index.vue")
+            },
+            {
+                path: "/infoCategory",
+                name: "InfoCategory",
+                hidden: false,
+                meta: {
+                    name: "信息分类"
+                },
+                component: () =>
+                    import ("../views/Info/category.vue")
+            }
+        ]
     },
-    children: [
-      {
-        path: "/userIndex",
-        name: "UserIndex",
+    {
+        path: '/user',
+        name: 'User',
+        redirect: "userIndex",
+        component: Layout,
         hidden: false,
         meta: {
-          name: "用户列表"
+            name: "用户管理",
+            icon: "user"
         },
-        component: () => import("../views/User/index.vue")
-      }
-    ]
-  },
+        children: [{
+            path: "/userIndex",
+            name: "UserIndex",
+            hidden: false,
+            meta: {
+                name: "用户列表"
+            },
+            component: () =>
+                import ("../views/User/index.vue")
+        }]
+    },
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router
