@@ -12,7 +12,7 @@
         :label-width="data.formLabelWidth"
         prop="category"
       >
-        <el-select v-model="data.form.category" placeholder="请选择活动区域">
+        <el-select v-model="data.form.category" placeholder="请选择类别">
           <el-option
             v-for="item in data.categoryOption"
             :key="item.id"
@@ -98,6 +98,7 @@
 /**
  * vue3.0
  */
+import { AddInfo } from "@/api/news";
 import { onMounted, reactive, ref, watch } from "@vue/composition-api";
 
 export default {
@@ -127,19 +128,47 @@ export default {
       submitLoading: false,
     });
     watch(() => {
-      data.dialog_info_flag = props.flag
+      data.dialog_info_flag = props.flag;
     });
     const close = () => {
-      data.dialog_info_flag = false;
       emit("update:flag", false);
     };
     const openDialog = () => {
-      data.dialog_info_flag = true;
+      data.categoryOption = props.category;
     };
-    const submit = () => {};
-    onMounted(() => {
-      console.log(emit, "dddddddddddddddd");
-    });
+    const submit = () => {
+      let requestData = {
+        categoryId: Number(data.form.category),
+        title: data.form.title,
+        content: data.form.content
+      };
+      if (!data.form.category) {
+        root.$message({
+          message: "分类不能为空！！",
+          type: "error",
+        });
+        return false;
+      }
+      data.submitLoading = true;
+      AddInfo(requestData)
+        .then((response) => {
+          let responseData = response.data;
+          root.$message({
+            message: responseData.message,
+            type: "success",
+          });
+          data.submitLoading = false;
+          // 关闭弹窗
+          close();
+          // 回调父级数据
+          emit("getListEmit");
+          // root.$refs['addInfoForm'].resetFields();
+        })
+        .catch((error) => {
+          data.submitLoading = false;
+        });
+    };
+    onMounted(() => {});
     return {
       data,
       close,

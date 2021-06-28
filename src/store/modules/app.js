@@ -52,21 +52,26 @@ const getters = {
      * mutations中的方法使用this.$store.commit('SET_COUNT',100)
      */
 const mutations = {
-    SET_COLLAPSE(state) {
-        state.isCollapse = !state.isCollapse
-        Cookie.set('isCollapse', JSON.stringify(state.isCollapse))
-        console.log(state.isCollapse)
-    },
-    SET_COUNT(state, value) {
-        state.count = value
-    },
-    SET_TOKEN(state, value) {
-        state.to_ken = value
-    },
-    SET_USERNAME(state, value) {
-        state.username = value
-    },
-}
+        SET_COLLAPSE(state) {
+            state.isCollapse = !state.isCollapse
+            Cookie.set('isCollapse', JSON.stringify(state.isCollapse))
+            console.log(state.isCollapse)
+        },
+        SET_COUNT(state, value) {
+            state.count = value
+        },
+        SET_TOKEN(state, value) {
+            state.to_ken = value
+        },
+        SET_USERNAME(state, value) {
+            state.username = value
+        },
+    }
+    /**
+     * 调用actions中的方法使用
+     * 2.0:this.$store.dispatch('app/login',requestData)
+     * 3.0:root.$store.dispatch('app/login',requestData)
+     */
 const actions = {
     login({ commit }, requestData) {
         return new Promise((resolve, reject) => {
