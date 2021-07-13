@@ -98,16 +98,46 @@ const routes = [{
             icon: "user"
         },
         children: [{
-            path: "/userIndex",
-            name: "UserIndex",
-            hidden: false,
-            meta: {
-                name: "用户列表"
+                path: "/userIndex",
+                name: "UserIndex",
+                hidden: false,
+                meta: {
+                    name: "用户列表"
+                },
+                component: () =>
+                    import ("../views/User/index.vue")
             },
-            component: () =>
-                import ("../views/User/index.vue")
-        }]
+            {
+                path: "/equityPenetrationChart",
+                name: "equityPenetrationChart",
+                hidden: false,
+                meta: {
+                    name: "股权穿透"
+                },
+                component: () =>
+                    import ("../views/equityPenetrationChart/index5.vue")
+            }
+        ]
     },
+    //股权穿透图
+    // {
+    //     path: "/equityPenetrationChart",
+    //     redirect: "/equityPenetrationChart/index",
+    //     component: Layout,
+    //     children: [{
+    //         path: "index",
+    //         name: "equityPenetrationChart",
+    //         hidden: true,
+    //         component: () =>
+    //             import ("@/views/equityPenetrationChart/index.vue"),
+    //         meta: {
+    //             title: "股权穿透图",
+    //             icon: "hybg",
+    //             key: "imAnalysis",
+    //             goBackShow: true,
+    //         },
+    //     }, ],
+    // },
 ]
 
 const router = new VueRouter({
